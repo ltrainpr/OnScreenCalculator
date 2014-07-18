@@ -1,25 +1,32 @@
 $(document).ready(function(){
   var computation = [];
+  var input = '';
   document.getElementById('result').innerHTML = 0;
 
  $('.number').click(function (e) {
     var operatorLookup = {'±': toggleNegativeOrPositive, '%': percentage};
     var string = e.target.innerHTML;
+    if (string.match(/\d/)){
+      input += string;
+    }else{
+      computation.push(input);
+      computation.push(string);
+      input = '';
+    }
    $('#positive-negative, #percent').click(function (z) {
       z.stopImmediatePropagation();
       var operator = z.target.innerHTML;
       var lastElement = computation.length - 1;
-      number = operatorLookup[operator](toFloat(computation[lastElement]));
-      computation[lastElement] = number.toString();
+      input = operatorLookup[operator](toFloat(input));
       console.log(computation);
-      document.getElementById('result').innerHTML = number;
+      document.getElementById('result').innerHTML = input;
    });
-    document.getElementById('result').innerHTML = string;
-    computation.push(string);
+    document.getElementById('result').innerHTML = (input || computation[computation.length - 1]);
  });
 
 
  $('#equal').click(function(){
+    computation.push(input);
     var operatorLookup = {'÷': myDivide, 'x': myMultiply, '+': myAdd, '-': mySubtract};
     var total = toFloat(computation[0]) || 0;
     computation.forEach(function(element, index, array){
@@ -28,11 +35,13 @@ $(document).ready(function(){
       }
     });
     computation = [];
+    input = '';
     document.getElementById('result').innerHTML = total;
  });
 
  $('.clear').click(function(){
     computation = [];
+    input = '';
     document.getElementById('result').innerHTML = 0;
  });
 });
