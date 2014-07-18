@@ -4,19 +4,30 @@ body {
   background-color: transparent;
 }
 
-.number, #equal{
-  display: inline-block;
-  font-size: 50px;
-  margin-left: 15px;
-  width: 4%;
-  border: solid 1px;
+.zero-left-margin {
+  margin-left: 0px !important;
 }
 
 .row {
+  font-size: 50px;
   text-align: center;
   margin-top: 15px;
-}
 
-.zero {
-  width: 15.5%;
+  .number, #equal, #positive-negative, #percent{
+    border: solid 1px;
+    display: inline-block;
+    margin-left: 15px;
+    width: 4%;
+  }
+
+  #result {
+    border: solid 1px;
+    margin: auto;
+    width: 23.5%;
+    text-align: right;
+  }
+
+  .zero {
+    width: 17%;
+  }
 }

@@ -3,16 +3,22 @@ body {
   background-image: url(http://www.diografic.com/images/Projects/Interactive/13_Sabado_Interactive/Destaque/Background.jpg);
   background-color: transparent; }
 
-.number, #equal {
-  display: inline-block;
-  font-size: 50px;
-  margin-left: 15px;
-  width: 4%;
-  border: solid 1px; }
+.zero-left-margin {
+  margin-left: 0px !important; }
 
 .row {
+  font-size: 50px;
   text-align: center;
   margin-top: 15px; }
-
-.zero {
-  width: 15.5%; }
+  .row .number, .row #equal, .row #positive-negative, .row #percent {
+    border: solid 1px;
+    display: inline-block;
+    margin-left: 15px;
+    width: 4%; }
+  .row #result {
+    border: solid 1px;
+    margin: auto;
+    width: 23.5%;
+    text-align: right; }
+  .row .zero {
+    width: 17%; }
