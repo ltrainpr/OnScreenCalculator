@@ -16,7 +16,7 @@ describe('On Screen Calculator', function(){
   });
 
   it('toInteger function converts string to number', function(){
-    expect(toInteger('35')).toBe(35);
+    expect(toFloat('35')).toBe(35);
   });
 
   it('toggleNegativeOrPositvie converts first number to negative number', function(){

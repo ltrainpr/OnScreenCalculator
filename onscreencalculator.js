@@ -1,50 +1,61 @@
 $(document).ready(function(){
   var computation = [];
   var input = '';
-  document.getElementById('result').innerHTML = 0;
+  displayNumber(0);
 
  $('.number').click(function (e) {
     var operatorLookup = {'±': toggleNegativeOrPositive, '%': percentage};
     var string = e.target.innerHTML;
-    if (string.match(/\d/)){
-      input += string;
-    }else{
-      computation.push(input);
-      computation.push(string);
-      input = '';
-    }
+    multipleNumbers(string);
+
    $('#positive-negative, #percent').click(function (z) {
       z.stopImmediatePropagation();
       var operator = z.target.innerHTML;
-      var lastElement = computation.length - 1;
       input = operatorLookup[operator](toFloat(input));
-      console.log(computation);
-      document.getElementById('result').innerHTML = input;
+      displayNumber(input);
    });
-    document.getElementById('result').innerHTML = (input || computation[computation.length - 1]);
+    displayNumber(input || computation[computation.length - 1]);
  });
 
+ function multipleNumbers (string) {
+  if (string.match(/\d/)){
+    input += string;
+  }else{
+    computation.push(input);
+    computation.push(string);
+    input = '';
+  }
+  return input;
+ }
 
  $('#equal').click(function(){
     computation.push(input);
-    var operatorLookup = {'÷': myDivide, 'x': myMultiply, '+': myAdd, '-': mySubtract};
     var total = toFloat(computation[0]) || 0;
     computation.forEach(function(element, index, array){
-      if (operatorLookup[element]){
-        total = operatorLookup[element](total, toFloat(computation[index+1]));
-      }
+      total = crunchNumbers(total, element, index) || total;
     });
     computation = [];
     input = '';
-    document.getElementById('result').innerHTML = total;
+    displayNumber(total);
  });
+
+ function crunchNumbers (total, element, index) {
+  var operatorLookup = {'÷': myDivide, 'x': myMultiply, '+': myAdd, '-': mySubtract};
+  if(operatorLookup[element]){
+    return operatorLookup[element](total, toFloat(computation[index+1]));
+  }
+ }
 
  $('.clear').click(function(){
     computation = [];
     input = '';
-    document.getElementById('result').innerHTML = 0;
+    displayNumber(0);
  });
 });
+
+function displayNumber(number) {
+  document.getElementById('result').innerHTML = number;
+}
 
 function percentage(num1){
   return num1/100;
