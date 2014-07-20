@@ -36,9 +36,7 @@ $(document).ready(function(){
     computation.forEach(function(element, index, array){
       total = crunchNumbers(total, element, index) || total;
     });
-    computation = [];
-    input = '';
-    displayNumber(total);
+    clearCalculator(total);
  });
 
  function crunchNumbers (total, element, index) {
@@ -48,12 +46,17 @@ $(document).ready(function(){
   }
  }
 
- $('.clear').click(function(){
+  $('.clear').click(function(){
+    clearCalculator(0);
+  });
+
+  function clearCalculator (resultingNumber) {
     computation = [];
     input = '';
-    displayNumber(0);
- });
+    displayNumber(resultingNumber);
+  }
 });
+
 
 function displayNumber(number) {
   document.getElementById('result').innerHTML = number;
