@@ -39,12 +39,12 @@ $(document).ready(function(){
     clearCalculator(total);
  });
 
- function crunchNumbers (total, element, index) {
-  var operatorLookup = {'÷': myDivide, 'x': myMultiply, '+': myAdd, '-': mySubtract};
-  if(operatorLookup[element]){
-    return operatorLookup[element](total, toFloat(computation[index+1]));
+  function crunchNumbers (total, element, index) {
+    var operatorLookup = {'÷': myDivide, 'x': myMultiply, '+': myAdd, '-': mySubtract};
+    if(operatorLookup[element]){
+      return operatorLookup[element](total, parseFloat(computation[index+1]));
+    }
   }
- }
 
   $('.clear').click(function(){
     clearCalculator(0);
