@@ -9,8 +9,7 @@ $(document).ready(function(){
   if (string.match(/\d/)){
     input += string;
   }else{
-    computation.push(input);
-    computation.push(string);
+    computation.push(input, string);
     input = '';
   }
   displayNumber(input || computation[computation.length - 1]);
