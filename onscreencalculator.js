@@ -8,13 +8,15 @@ $(document).ready(function(){
     var string = e.target.innerHTML;
     multipleNumbers(string);
 
-   $('#positive-negative, #percent').click(function (z) {
-      z.stopImmediatePropagation();
-      var operator = z.target.innerHTML;
-      input = operatorLookup[operator](toFloat(input));
-      displayNumber(input);
-   });
     displayNumber(input || computation[computation.length - 1]);
+ });
+
+ $('#positive-negative, #percent').click(function (z) {
+    var operator = z.target.innerHTML;
+    if (input.length > 0){
+      input = operatorLookup[operator](parseFloat(input));
+      displayNumber(input);
+    }
  });
 
  function multipleNumbers (string) {
