@@ -32,7 +32,7 @@ $(document).ready(function(){
 
  $('#equal').click(function(){
     computation.push(input);
-    var total = toFloat(computation[0]) || 0;
+    var total = parseFloat(computation[0]) || 0;
     computation.forEach(function(element, index, array){
       total = crunchNumbers(total, element, index) || total;
     });
@@ -65,9 +65,6 @@ function percentage(num1){
 
 function toggleNegativeOrPositive(num1) {
     return -num1;
-}
-function toFloat(stringDigits) {
-  return parseFloat(stringDigits);
 }
 
 function myAdd(num1, num2){
