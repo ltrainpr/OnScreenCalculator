@@ -15,10 +15,6 @@ describe('On Screen Calculator', function(){
     expect(myDivide(4,2)).toBe(2);
   });
 
-  it('toInteger function converts string to number', function(){
-    expect(toFloat('35')).toBe(35);
-  });
-
   it('toggleNegativeOrPositvie converts first number to negative number', function(){
     expect(toggleNegativeOrPositive(1,2)).toBe(-1);
   });

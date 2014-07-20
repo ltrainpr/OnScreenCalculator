@@ -3,21 +3,7 @@ $(document).ready(function(){
   var input = '';
   displayNumber(0);
 
- $('.number').click(function (e) {
-    var operatorLookup = {'±': toggleNegativeOrPositive, '%': percentage};
-    var string = e.target.innerHTML;
-    multipleNumbers(string);
-
-    displayNumber(input || computation[computation.length - 1]);
- });
-
- $('#positive-negative, #percent').click(function (z) {
-    var operator = z.target.innerHTML;
-    if (input.length > 0){
-      input = operatorLookup[operator](parseFloat(input));
-      displayNumber(input);
-    }
- });
+ $('.number').click(function (e) { multipleNumbers(e.target.innerHTML); });
 
  function multipleNumbers (string) {
   if (string.match(/\d/)){
@@ -27,17 +13,30 @@ $(document).ready(function(){
     computation.push(string);
     input = '';
   }
-  return input;
+  displayNumber(input || computation[computation.length - 1]);
  }
 
- $('#equal').click(function(){
+
+ $('#positive-negative, #percent').click(function (z) { percentOrPositiveNegative(z.target.innerHTML); });
+
+  function percentOrPositiveNegative (operator) {
+    var operatorLookup = {'±': toggleNegativeOrPositive, '%': percentage};
+    if (input.length > 0){
+      input = operatorLookup[operator](parseFloat(input));
+      displayNumber(input);
+    }
+  }
+
+  $('#equal').click(function(){ equal(); });
+
+  function equal (argument) {
     computation.push(input);
     var total = parseFloat(computation[0]) || 0;
     computation.forEach(function(element, index, array){
       total = crunchNumbers(total, element, index) || total;
     });
     clearCalculator(total);
- });
+  }
 
   function crunchNumbers (total, element, index) {
     var operatorLookup = {'÷': myDivide, 'x': myMultiply, '+': myAdd, '-': mySubtract};
@@ -46,9 +45,7 @@ $(document).ready(function(){
     }
   }
 
-  $('.clear').click(function(){
-    clearCalculator(0);
-  });
+  $('.clear').click(function(){ clearCalculator(0); });
 
   function clearCalculator (resultingNumber) {
     computation = [];
