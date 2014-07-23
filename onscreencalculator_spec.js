@@ -1,27 +1,46 @@
 
 describe('On Screen Calculator', function(){
-  it('add function adds two numbers together', function(){
-    expect(Calculator.myAdd(1,2)).toBe(3);
+
+  it('adds two numbers', function(){
+    var parameters = {computation: ['3', '+', '4'], input: '4'};
+
+    expect(Calculator.calculate(parameters)).toBe(7);
   });
 
-  it('add function adds two numbers together', function(){
-    expect(Calculator.mySubtract(4,1)).toBe(3);
+  it('subtract two numbers', function(){
+    var parameters = {computation: ['9', '-', '4'], input: '4'};
+
+    expect(Calculator.calculate(parameters)).toBe(5);
   });
 
-  it('add function adds two numbers together', function(){
-    expect(Calculator.myMultiply(3,2)).toBe(6);
+  it('multiply\'s two numbers', function(){
+    var parameters = {computation: ['3', 'x', '4'], input: '4'};
+
+    expect(Calculator.calculate(parameters)).toBe(12);
   });
 
-  it('add function adds two numbers together', function(){
-    expect(Calculator.myDivide(4,2)).toBe(2);
+  it('divides two numbers', function(){
+    var parameters = {computation: ['12', '÷', '4'], input: '4'};
+
+    expect(Calculator.calculate(parameters)).toBe(3);
   });
 
-  it('toggleNegativeOrPositvie converts first number to negative number', function(){
-    expect(Calculator.toggleNegativeOrPositive(1,2)).toBe(-1);
+  it('toggleNegativeOrPositvie converts number to negative number', function(){
+    var parameters = {computation: ['3', '+', '4'], input: '4'};
+
+    expect(App.percentOrPositiveNegative('±', parameters)).toBe(-4);
   });
 
-  it('toggleNegativeOrPositvie converts first negative number to positive number', function(){
-    expect(Calculator.toggleNegativeOrPositive(-1,2)).toBe(1);
+  it('toggleNegativeOrPositvie converts negative number to positive number', function(){
+    var parameters = {computation: ['3', '+'], input: '-4'};
+
+    expect(App.percentOrPositiveNegative('±', parameters)).toBe(4);
+  });
+
+  it('toggleNegativeOrPositvie divides by 100 for percentage representation', function(){
+    var parameters = {computation: ['3', '+'], input: '9876'};
+
+    expect(App.percentOrPositiveNegative('%', parameters)).toBe(98.76);
   });
 });
 
