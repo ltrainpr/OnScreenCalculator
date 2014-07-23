@@ -2,19 +2,18 @@ Calculator = {
     // Do the work of converting a computation array into a number
     // Returns a number
 
-  calculate: function (computationArray) {
-    var total = parseFloat(computationArray[0]) || 0;
-    computationArray.forEach(function(element, index, array){
-      total = Calculator.crunchNumbers(total, element, index) || total;
+  calculate: function (parameters) {
+    var total = parseFloat(parameters.computation[0]) || 0;
+    parameters.computation.forEach(function(element, index, array){
+      total = Calculator.crunchNumbers(total, element, index, parameters) || total;
     });
 
     return total;
   },
 
-  crunchNumbers: function(total, element, index) {
-    var operatorLookup = {'÷': Calculator.myDivide, 'x': Calculator.myMultiply, '+': Calculator.myAdd, '-': Calculator.mySubtract};
-    if(operatorLookup[element]){
-      return operatorLookup[element](total, parseFloat(parameters.computation[index+1]));
+  crunchNumbers: function(total, element, index, parameters) {
+    if(Calculator.operator[element]){
+      return Calculator.operator[element](total, parseFloat(parameters.computation[index+1]));
     }
   },
 
@@ -45,15 +44,14 @@ Calculator = {
 
 App = {
 
-  percentOrPositiveNegative: function(operator) {
-    var operatorLookup = {'±': Calculator.toggleNegativeOrPositive, '%': Calculator.percentage};
+  percentOrPositiveNegative: function(operator, parameters) {
     if (parameters.input.length > 0){
       parameters.input = operatorLookup[operator](parseFloat(parameters.input));
     }
     return parameters.input;
   },
 
-  multipleNumbers: function(string) {
+  multipleNumbers: function(string, parameters) {
     if (string.match(/\d/)){
       parameters.input += string;
     }else{
@@ -64,15 +62,15 @@ App = {
     return result;
     },
 
-  total: function(argument) {
+  total: function(parameters) {
      // Calls Calculator.calculate with the apps current computation, returns the number.
 
     parameters.computation.push(parameters.input);
-    var total = Calculator.calculate(parameters.computation);
-    return App.resetCalculator(total);
+    var total = Calculator.calculate(parameters);
+    return App.resetCalculator(total, parameters);
   },
 
-  resetCalculator: function (resultingNumber) {
+  resetCalculator: function (resultingNumber, parameters) {
     // Resets the `input` and `computation` arrays; returns the value that should be displayed on the screen
 
     parameters.computation = [];
@@ -82,7 +80,7 @@ App = {
 };
 
 View = {
-  run: function(app, domElements) {
+  run: function(app, domElements, parameters) {
     // Registers all the event handlers.
     View.display(0);
     $('.number').click(function (e) { View.display(app.multipleNumbers(e.target.innerHTML)); });
@@ -97,5 +95,11 @@ View = {
 };
 
 $(document).ready(function() {
-  View.run(App, $('#calculator'));
+  function Params(){}
+
+  Params.prototype.computation = [];
+  Params.prototype.input = '';
+  var parameters = new Params();
+
+  View.run(App, $('#calculator'), parameters);
 });
