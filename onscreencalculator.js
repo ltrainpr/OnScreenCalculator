@@ -1,11 +1,3 @@
-function Params(){
-}
-
-Params.prototype.computation = [];
-Params.prototype.input = '';
-var parameters = new Params();
-
-
 Calculator = {
     // Do the work of converting a computation array into a number
     // Returns a number
