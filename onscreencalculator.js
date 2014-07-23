@@ -17,28 +17,13 @@ Calculator = {
     }
   },
 
-  myAdd: function(num1, num2){
-    return num1 + num2;
-  },
-
-  mySubtract: function(num1, num2){
-    return num1 - num2;
-  },
-
-  myMultiply: function(num1, num2){
-    return num1 * num2;
-  },
-
-  myDivide: function(num1, num2){
-    return num1 / num2;
-  },
-
-  percentage: function(num1){
-    return num1/100;
-  },
-
-  toggleNegativeOrPositive: function(num1) {
-    return -num1;
+  operator: {
+    '÷': function(num1, num2){return num1 / num2;},
+    'x': function(num1, num2){return num1 * num2;},
+    '+': function(num1, num2){return num1 + num2;},
+    '-': function(num1, num2){return num1 - num2;},
+    '%': function(num1){return num1/100;},
+    '±': function(num1) {return -num1;}
   }
 };
 
@@ -46,7 +31,7 @@ App = {
 
   percentOrPositiveNegative: function(operator, parameters) {
     if (parameters.input.length > 0){
-      parameters.input = operatorLookup[operator](parseFloat(parameters.input));
+      parameters.input = Calculator.operator[operator](parseFloat(parameters.input));
     }
     return parameters.input;
   },
