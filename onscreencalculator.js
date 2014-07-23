@@ -67,15 +67,17 @@ App = {
 View = {
   run: function(app, domElements, parameters) {
     // Registers all the event handlers.
-    View.display(0);
-    $('.number').click(function (e) { View.display(app.multipleNumbers(e.target.innerHTML)); });
-    $('#positive-negative, #percent').click(function (z) { View.display(app.percentOrPositiveNegative(z.target.innerHTML)); });
-    $('#equal').click(function(){ View.display(app.total()); });
-    $('.clear').click(function(){ View.display(app.resetCalculator(0)); });
+
+    var result = domElements.find('#result');
+    result.text(0);
+    domElements.on('click', '.number', function(e){View.display(app.multipleNumbers(e.target.innerHTML, parameters), result);});
+    domElements.on('click', '#positive-negative, #percent', function(z) { View.display(app.percentOrPositiveNegative(z.target.innerHTML, parameters), result); });
+    domElements.on('click', '#equal', function() {View.display(app.total(parameters), result);});
+    domElements.on('click', '.clear', function () {View.display(app.resetCalculator(0, parameters), result);});
   },
 
-  display: function(number) {
-    document.getElementById('result').innerHTML = number;
+  display: function(number, resultElement) {
+    resultElement.text(number);
   }
 };
 
