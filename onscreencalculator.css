@@ -1,0 +1,24 @@
+body {
+  font-family: Helvetica, Arial;
+  background-image: url(http://www.diografic.com/images/Projects/Interactive/13_Sabado_Interactive/Destaque/Background.jpg);
+  background-color: transparent; }
+
+.zero-left-margin {
+  margin-left: 0px !important; }
+
+.row {
+  font-size: 50px;
+  text-align: center;
+  margin-top: 15px; }
+  .row .number, .row #equal, .row #positive-negative, .row #percent {
+    border: solid 1px;
+    display: inline-block;
+    margin-left: 15px;
+    width: 4%; }
+  .row #result {
+    border: solid 1px;
+    margin: auto;
+    width: 23.5%;
+    text-align: right; }
+  .row .zero {
+    width: 17%; }
